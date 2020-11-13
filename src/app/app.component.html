@@ -1,21 +1,169 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="contenedor-video">
+  <vg-player (onPlayerReady)="onPlayerReady($event)" vg-theme="controller.config.theme.url">
+    <ng-container *ngIf="activeCuePoints">
+      <div *ngFor="let cuePointData of activeCuePoints" class="info-layer">
+        <h3>
+          <a [href]="cuePointData?.href" target="_blank">
+            {{cuePointData?.title
+          }}</a>
+        </h3>
+        <p>
+          <img [src]="cuePointData?.src" align="left"/>
+          {{ cuePointData?.description }}
+        </p>
+      </div>
+    </ng-container>
 
-<router-outlet></router-outlet>
+    <div class="cue-point-manager-layer" *ngIf="showCuePointManager">
+      <div
+        class="close fa fa-close"
+        (click)="showCuePointManager = false"
+      ></div>
+
+      <div class="cue-list">
+        <table class="cue-table">
+          <thead>
+            <tr class="cue-row">
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th class="json-header">JSON</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cue of track?.cues" class="cue-row">
+              <td>{{ cue.startTime }}</td>
+              <td>{{ cue.endTime }}</td>
+              <td class="json">{{ json.parse(cue.text).title }}</td>
+              <td class="actions">
+                <button type="button" (click)="onClickRemove(cue)">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="add-cue">
+        <h2>Add a Cue Point dynamically</h2>
+        <p>(all fields are required)</p>
+
+        <form
+          name="cueForm"
+          #formRef="ngForm"
+          (submit)="onSubmit(formRef, $event)"
+        >
+          <div class="form-field">
+            <label for="startTime">Start Time</label>
+            <input
+              type="number"
+              id="startTime"
+              name="startTime"
+              [(ngModel)]="newCue.startTime"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label for="endTime">End Time</label>
+            <input
+              type="number"
+              id="endTime"
+              name="endTime"
+              [(ngModel)]="newCue.endTime"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label for="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              [(ngModel)]="newCue.title"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label for="description">Description</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              [(ngModel)]="newCue.description"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label for="src">Image URL</label>
+            <input
+              type="text"
+              id="src"
+              name="src"
+              [(ngModel)]="newCue.src"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label for="href">Link</label>
+            <input
+              type="text"
+              id="href"
+              name="href"
+              [(ngModel)]="newCue.href"
+              required
+            />
+          </div>
+
+          <button type="submit" [disabled]="!formRef.valid">Add Cue</button>
+        </form>
+      </div>
+    </div>
+
+    <vg-overlay-play></vg-overlay-play>
+
+    <vg-controls>
+      <vg-play-pause></vg-play-pause>
+      <vg-playback-button></vg-playback-button>
+
+      <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+      <vg-scrub-bar>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        <vg-scrub-bar-cue-points
+          [vgCuePoints]="metadataTrack.cues"
+        ></vg-scrub-bar-cue-points>
+      </vg-scrub-bar>
+
+      <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+      <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+      <div
+        class="cue-point-manager-button fa fa-thumb-tack"
+        (click)="showCuePointManager = !showCuePointManager"
+      ></div>
+      <vg-mute></vg-mute>
+
+      <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+    <video
+      [vgMedia]="myMedia"
+      #myMedia
+      id="my-video"
+      src="http://static.videogular.com/assets/videos/videogular.mp4"
+      type="video/mp4"
+    >
+      <track
+        src="assets/data/cue-points.vtt"
+        kind="metadata"
+        label="Cue Points"
+        default
+        #metadataTrack
+        vgCuePoints
+        (onEnterCuePoint)="onEnterCuePoint($event)"
+        (onExitCuePoint)="onExitCuePoint($event)"
+      />
+    </video>
+  </vg-player>
+</div>
