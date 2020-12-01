@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { VgAPI } from 'videogular2/compiled/core';
 import { NgForm } from '@angular/forms';
+
+export interface IMedia {
+  title: string;
+  src: string;
+  type: string;
+  cue: string;
+}
 
 declare var VTTCue;
 
@@ -20,60 +27,75 @@ export interface IWikiCue {
   src: string;
   href: string;
 }
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-// tslint:disable-next-line: component-class-suffix
+
 export class AppComponent implements OnInit {
-  // tslint:disable-next-line: ban-types
+  @HostBinding('class')
+  isStandalone = '';
+
   sources: Array<Object>;
   activeCuePoints: ICuePoint[] = [];
   api: VgAPI;
   track: TextTrack;
   showCuePointManager = false;
+
   newCue: IWikiCue = {
     startTime: 40,
     endTime: 50,
     title: 'Carl Sagan',
-    description:
-      // tslint:disable-next-line: max-line-length
-      'Carl Edward Sagan (/ˈseɪɡən/; November 9, 1934 – December 20, 1996) was an American astronomer, cosmologist, astrophysicist, astrobiologist, author, science popularizer, and science communicator in astronomy and other natural sciences.',
-    src:
-      'https://upload.wikimedia.org/wikipedia/commons/b/be/Carl_Sagan_Planetary_Society.JPG',
-    href: 'https://en.wikipedia.org/wiki/Carl_Sagan',
-  };
+    description: 'Carl Edward Sagan (/ˈseɪɡən/; November 9, 1934 – December 20, 1996) was an American astronomer, cosmologist, astrophysicist, astrobiologist, author, science popularizer, and science communicator in astronomy and other natural sciences.',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/b/be/Carl_Sagan_Planetary_Society.JPG',
+    href: 'https://en.wikipedia.org/wiki/Carl_Sagan'
+};
 
   json: JSON = JSON;
 
   constructor() {
-    this.sources = [
-      {
-        src: 'http://static.videogular.com/assets/videos/videogular.mp4',
-        type: 'video/mp4',
-      },
-      {
-        src: 'http://static.videogular.com/assets/videos/videogular.ogg',
-        type: 'video/ogg',
-      },
-      {
-        src: 'http://static.videogular.com/assets/videos/videogular.webm',
-        type: 'video/webm',
-      },
-    ];
   }
+
+  playlist: Array<IMedia> = [
+    {
+      title: 'Animales en la junga',
+      src: './assets/animales-gordos.mp4',
+      type: 'video/mp4',
+      cue: './assets/data/cue-points.vtt'
+    },
+    {
+      title: 'Big Buck Bunny',
+      src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
+      type: 'video/mp4',
+      cue: './assets/data/BigBuck.vtt'
+  },
+  {
+      title: 'Elephants Dream',
+      src: 'http://static.videogular.com/assets/videos/elephants-dream.mp4',
+      type: 'video/mp4',
+      cue: './assets/data/cue-points.vtt'
+  }
+  ];
+  currentIndex = 0;
+  currentItem: IMedia = this.playlist[this.currentIndex];
 
   ngOnInit() {}
 
   onPlayerReady(api: VgAPI) {
     this.api = api;
     this.track = this.api.textTracks[0];
-  }
 
+    this.api
+      .getDefaultMedia()
+      .subscriptions.loadedMetadata.subscribe(this.playVideo.bind(this));
+    this.api
+      .getDefaultMedia()
+      .subscriptions.ended.subscribe(this.nextVideo.bind(this));
+  }
   onSubmit(form: NgForm, event: Event) {
     event.preventDefault();
-
     if (form.valid) {
       const jsonData = {
         title: form.value.title,
@@ -102,5 +124,22 @@ export class AppComponent implements OnInit {
     this.activeCuePoints = this.activeCuePoints.filter(
       (c) => c.id !== $event.id
     );
+  }
+  nextVideo() {
+    this.currentIndex++;
+
+    if (this.currentIndex === this.playlist.length) {
+      this.currentIndex = 0;
+    }
+    this.currentItem = this.playlist[this.currentIndex];
+  }
+
+  playVideo() {
+    this.api.play();
+  }
+
+  onClickPlaylistItem(item: IMedia, index: number) {
+    this.currentIndex = index;
+    this.currentItem = item;
   }
 }
