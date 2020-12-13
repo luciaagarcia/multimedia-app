@@ -1,0 +1,272 @@
+:host.is-standalone aside {
+    display: none;
+}
+
+:host.is-standalone .player-container {
+    padding: 0;
+    margin: 0;
+}
+
+aside {
+    background-color: #0a4646;
+    height: 100%;
+    position: fixed;
+}
+
+.logo {
+    padding: 10px;
+}
+
+.menu {
+    width: 250px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+.menu li {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.player-container {
+    width: 100%;
+    height: 650px;
+    margin-left: 25px;
+    margin-right: 50px;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+}
+
+.ImgPoster {
+    width: 350px;
+    height: 200px;
+    border: 7px outset #114161;
+    -webkit-filter: grayscale(100%);
+    /* Chrome, Safari, Opera */
+    filter: grayscale(100%);
+    cursor: pointer;
+}
+
+.selected>a>img {
+    -webkit-filter: grayscale(0%);
+    /* Chrome, Safari, Opera */
+    filter: grayscale(0%);
+    border-color: #ffffff;
+}
+
+.ImgPoster:hover {
+    -webkit-filter: grayscale(0%);
+    /* Chrome, Safari, Opera */
+    filter: grayscale(0%);
+}
+
+
+/* Lista de reproducción*/
+
+.player-container {
+    display: flex;
+    padding-top: 1.2rem;
+    align-items: inherit;
+}
+
+.video-estadisticas {
+    display: block;
+    width: 75%;
+}
+
+.estadisticas {
+    margin-top: 10px;
+}
+
+#listaReproduccion .botones {
+    display: inline-block;
+}
+
+.listaReproduccion {
+    background-color: #ffffff4f;
+    margin-left: 10px;
+    width: 25%;
+    padding-left: 10px;
+}
+
+.boton_personalizado {
+    background-color: #0a4646;
+    color: white;
+    padding: 10px;
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+
+/* Lista de reproducción */
+
+.gallery {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 450px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    background-color: #ffffff4f;
+    white-space: nowrap;
+    height: 300px;
+    width: auto;
+}
+
+ul a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+li {
+    float: left;
+    display: inline;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
+
+/* Cue Points */
+
+.info-layer {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    width: 25%;
+    height: 100%;
+    font-family: sans-serif;
+    color: white;
+    z-index: 250;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+}
+
+.info-layer img {
+    width: 40px;
+    height: auto;
+    padding-right: 20px;
+}
+
+.info-layer a,
+.info-layer a:visited {
+    color: white;
+}
+
+.cue-point-manager-button {
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    line-height: 50px;
+}
+
+.cue-point-manager-layer {
+    position: absolute;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #FFF;
+    width: 100%;
+    height: 100%;
+    z-index: 400;
+    display: flex;
+    flex-direction: row;
+}
+
+::cue {
+    visibility: hidden;
+}
+
+.cue-list {
+    flex: 2;
+}
+
+.cue-table {
+    width: 100%;
+    padding: 30px;
+}
+
+.cue-row .json-header {
+    width: 60%;
+}
+
+.cue-row .json {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 400px;
+    display: inline-block;
+}
+
+.cue-row .actions {
+    text-align: center;
+}
+
+.form-field {
+    padding: 0 30px 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-cue {
+    flex: 1;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.myButton {
+    box-shadow: 11px 10px 14px -7px #276873;
+    background: linear-gradient(to bottom, #35317d 5%, #00d5ff 100%);
+    background-color: #35317d;
+    border-radius: 8px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    border: 0;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 6px 10px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #3d768a;
+    margin-top: 10px;
+}
+
+.myButton:hover {
+    background: black;
+    background-color: #00d5ff;
+}
+
+.myButton:active {
+    position: relative;
+    top: 1px;
+}

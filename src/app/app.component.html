@@ -1,0 +1,142 @@
+<section class="player-container">
+    <section id='video' class="video-estadisticas">
+        <vg-player (onPlayerReady)="onPlayerReady($event)">
+            <ng-container *ngIf="activeCuePoints">
+                <div *ngFor="let cuePointData of activeCuePoints" class="info-layer">
+                    <h3><a [href]="cuePointData?.href" target="_blank">{{ cuePointData?.title }}</a></h3>
+                    <p>
+                        <img [src]="cuePointData?.src" align="left"> {{ cuePointData?.description }}
+                    </p>
+                    <div *ngIf="cuePointData?.botones.length > 0">
+                        <div class='crearBotones'>
+                            <div *ngFor="let boton of cuePointData?.botones">
+                                <button class="myButton" (click)="ComprobarAcierto(cuePointData,boton)">{{boton}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="cue-point-manager-layer" *ngIf="showCuePointManager">
+                <div class="close fa fa-close" (click)="showCuePointManager = false"></div>
+
+                <div class="cue-list">
+                    <table class="cue-table">
+                        <thead>
+                            <tr class="cue-row">
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th class="json-header">JSON</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cue of track?.cues" class="cue-row">
+                                <td>{{ cue.startTime }}</td>
+                                <td>{{ cue.endTime }}</td>
+                                <td class="json">{{ json.parse(cue.text).title }}</td>
+                                <td class="actions">
+                                    <button type="button" (click)="onClickRemove(cue)">Remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="add-cue">
+                    <h2>Añade una pista de información</h2>
+
+                    <form name="cueForm" #formRef="ngForm" (submit)="onSubmit(formRef, $event)">
+                        <div class="form-field">
+                            <label for="startTime">Inicio</label>
+                            <input type="number" id="startTime" name="startTime" [(ngModel)]="newCue.startTime" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="endTime">Fin</label>
+                            <input type="number" id="endTime" name="endTime" [(ngModel)]="newCue.endTime" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="title">Título</label>
+                            <input type="text" id="title" name="title" [(ngModel)]="newCue.title" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="description">Descripción</label>
+                            <input type="text" id="description" name="description" [(ngModel)]="newCue.description" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="src">Imagen URL</label>
+                            <input type="text" id="src" name="src" [(ngModel)]="newCue.src" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="href">Link</label>
+                            <input type="text" id="href" name="href" [(ngModel)]="newCue.href" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="href">Botones (opcional)</label>
+                            <input type="text" id="href" name="botones" [(ngModel)]="newCue.botones" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="href">Acierto</label>
+                            <input type="text" id="href" name="acierto" [(ngModel)]="newCue.acierto" required>
+                        </div>
+
+                        <button type="submit" [disabled]="!formRef.valid">Add Cue</button>
+                    </form>
+                </div>
+            </div>
+
+            <vg-buffering></vg-buffering>
+            <vg-controls>
+                <vg-play-pause></vg-play-pause>
+                <vg-playback-button></vg-playback-button>
+
+                <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+                <vg-scrub-bar>
+                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                    <vg-scrub-bar-cue-points [vgCuePoints]="metadataTrack.cues"></vg-scrub-bar-cue-points>
+                </vg-scrub-bar>
+
+                <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                <div class="cue-point-manager-button fa fa-thumb-tack" (click)="showCuePointManager = !showCuePointManager"></div>
+
+                <vg-mute></vg-mute>
+                <vg-volume></vg-volume>
+
+                <vg-overlay-play></vg-overlay-play>
+                <vg-fullscreen></vg-fullscreen>
+            </vg-controls>
+
+            <video #media [vgMedia]="media" [src]="currentItem.src" id="singleVideo" preload="auto" type="video/mp4" crossorigin>
+                <track [src]="currentItem.cue" kind="metadata" label="Cue Points" default
+               #metadataTrack
+               vgCuePoints
+               (onEnterCuePoint)="onEnterCuePoint($event)"
+               (onExitCuePoint)="onExitCuePoint($event)">
+            </video>
+        </vg-player>
+        <section class="estadisticas" width="1280px">
+            <div>
+                <ul class="gallery">
+                    <li *ngFor="let item of playlist; let $index = index" (click)="onClickPlaylistItem(item, $index)" [class.selected]="item === currentItem">
+                        <a><img class="ImgPoster" src={{item.poster}}></a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </section>
+    <section class="listaReproduccion">
+        <h1>Estadísticas de este vídeo</h1>
+        <a>Has acertado: {{this.aciertos}}</a><br>
+        <a>Has fallado: {{this.fallos}}</a><br>
+        <a>Respuestas totales: {{this.respuestas}}</a><br>
+        <h1>Estadísticas globales</h1>
+        <a>Has acertado: {{this.aciertosGlobales}}</a><br>
+        <a>Has fallado: {{this.fallosGlobales}}</a><br>
+        <a>Respuestas totales: {{this.respuestasGlobales}}</a><br>
+        <div>
+            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="chartColors">
+          </canvas>
+        </div>
+    </section>
+</section>

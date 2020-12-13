@@ -1,0 +1,12 @@
+WEBVTT FILE
+
+Pregunta
+00:00:40.000 --> 00:00:41.800
+{
+  "title":"Comida",
+  "description": "¿Cuál es la comida que va a preparar?",
+  "src":"",
+  "href":"",
+  "botones": ["Tostada de judias", "Macarrones con tomate"],
+  "acierto": "Tostada de judias"
+}
