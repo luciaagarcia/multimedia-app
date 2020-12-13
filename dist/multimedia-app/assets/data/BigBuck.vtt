@@ -1,0 +1,12 @@
+WEBVTT FILE
+
+Ejemplo
+00:00:59.000 --> 00:01:00.800
+{
+    "title": "¿Qué pasará",
+    "description": "¿Qué crees que le va a pasar al oso polar?",
+  "src":"",
+  "href":"",
+  "botones": ["Va a encontrar a su familia", "Se va a caer al lago"],
+  "acierto": "Se va a caer al lago"
+}
