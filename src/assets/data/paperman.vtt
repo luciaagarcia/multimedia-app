@@ -1,0 +1,23 @@
+WEBVTT FILE
+
+Ventana
+00:01:25.000 --> 00:01:26.800
+{
+  "title": "Ventana",
+  "description": "¿Qué ha visto a través de la ventana?",
+  "src":"",
+  "href":"",
+  "botones": ["Se encuentra con la chica", "Está Superman volando"],
+  "acierto": "Se encuentra con la chica"
+}
+
+Avion
+00:02:36.000 --> 00:02:38.800
+{
+  "title": "Avion",
+  "description": "¿Conseguirá enviar el avión a la mujer?",
+  "src":"",
+  "href":"",
+  "botones": ["Sí", "No"],
+  "acierto": "Sí"
+}

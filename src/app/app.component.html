@@ -10,6 +10,7 @@
                     <div *ngIf="cuePointData?.botones.length > 0">
                         <div class='crearBotones'>
                             <div *ngFor="let boton of cuePointData?.botones">
+                                {{pauseVideo()}}
                                 <button class="myButton" (click)="ComprobarAcierto(cuePointData,boton)">{{boton}}</button>
                             </div>
                         </div>

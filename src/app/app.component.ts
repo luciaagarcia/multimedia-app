@@ -107,11 +107,11 @@ export class AppComponent implements OnInit {
       poster: "./assets/Heinz.png",
     },
     {
-      title: "Heinz",
-      src: "./assets/heinz.mp4",
+      title: "Paperman",
+      src: "./assets/paperman.mp4",
       type: "video/mp4",
-      cue: "./assets/data/heinz.vtt",
-      poster: "./assets/Heinz.png",
+      cue: "./assets/data/paperman.vtt",
+      poster: "./assets/paperman.png",
     },
   ];
   currentIndex = 0;
@@ -181,8 +181,6 @@ export class AppComponent implements OnInit {
     this.fallos=0;
     this.respuestas=0;
     this.doughnutChartData = [this.aciertosGlobales, this.fallosGlobales];
-
-
   }
 
   playVideo() {

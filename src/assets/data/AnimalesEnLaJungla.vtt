@@ -2,26 +2,16 @@ WEBVTT FILE
 
 
 Pregunta
-00:00:01.300 --> 00:00:04.800
+00:00:14.000 --> 00:00:16.800
 {
-  "title":"Pregunta",
-  "description": "¿Qué tiene plantado Edu?",
+  "title":"Jirafa",
+  "description": "¿Qué va a pasarle a la jirafa?",
   "src":"",
   "href":"",
-  "botones": ["Tomates", "Chorizo"],
-  "acierto": "Tomates"
+  "botones": ["Conseguirá beber", "Se caerá al agua"],
+  "acierto": "Se caerá al agua"
 }
 
-Pregunta
-00:00:09.200 --> 00:00:13.800
-{
-    "title": "Pregunta",
-    "description": "La jirafa es el animal terrestre más alto del mundo y uno de los protagonistas indiscutibles de la sabana africana. Esta peculiar especie puede llegar a medir 5 metros de altura y su nombre en latín Giraffa camelopardalis proviene de los romanos, que las consideraban una mezcla de camello y leopardo.",
-    "src": "https://www.oasysparquetematico.com/wp-content/uploads/2019/01/jirafa.jpg",
-    "href": "https://www.oasysparquetematico.com/jirafas/",
-    "botones": ["Si", "No"],
-    "acierto": "No"
-}
 
 Suricato
 00:00:31.000 --> 00:00:40.600
@@ -30,6 +20,17 @@ Suricato
     "description": "Los suricatos, los cuales también son conocidos por el calificativo de gatos de roca pertenecen a la familia Herpestidae y se tratan de unos pequeños (pueden llegar a medir 35 centímetros, sin contar la cola, y a pesar aproximadamente entre los 700 y 720 gramos ) mamíferos carnívoros. Estos animalillos se caracterizan porque tienen una cola bastante alargada, la cual puede llegar a medir hasta 250 milímetros y un pelaje que varía depende de la zona en la que nos encontremos, ya que pueden ser marrones o grises. Los parches negros que rodean sus ojos son un aspecto llamativo en los suricatos, al igual que las bandas negras de su torso.",
     "src": "https://www.palmitospark.es/wp-content/uploads/2017/06/curiosidades-de-los-suricatos.jpg",
     "href": "https://www.palmitospark.es/blog/animales-y-flora/curiosidades-de-los-suricatos/",
-    "botones": "",
+    "botones": [],
     "acierto": ""
+}
+
+Gato
+00:04:57:100 --> 00:04:58:600
+{
+    "title": "Ratón y gato",
+    "description": "¿Qué le pasará al ratón?",
+    "src": "",
+    "href": "",
+    "botones": ["El gato se cae y se salva","Se lo comen"],
+    "acierto": "El gato se cae y se salva"
 }

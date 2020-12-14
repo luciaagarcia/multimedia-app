@@ -1,12 +1,37 @@
 WEBVTT FILE
 
-Ejemplo
+
+OsoPolar
+00:00:05.000 --> 00:00:15.800
+{
+  "title": "Oso polar",
+  "description": "El oso polar u oso blanco (Ursus maritimus) es una especie de mamífero carnívoro de la familia de los osos (Ursidae).2​ Es junto con su pariente, el oso Kodiak (Ursus arctos middendorffi), uno de los carnívoros terrestres más grandes de la Tierra.3​ Vive en el medio polar y zonas heladas del hemisferio norte. Es el único superdepredador del Ártico. ",
+  "src":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Polar_Bear_-_Alaska.jpg/375px-Polar_Bear_-_Alaska.jpg",
+  "href":"https://es.wikipedia.org/wiki/Ursus_maritimus",
+  "botones": [],
+  "acierto": ""
+}
+
+
+Lago
 00:00:59.000 --> 00:01:00.800
 {
-    "title": "¿Qué pasará",
-    "description": "¿Qué crees que le va a pasar al oso polar?",
+  "title": "¿Qué pasará?",
+  "description": "¿Qué crees que le va a pasar al oso polar?",
   "src":"",
   "href":"",
   "botones": ["Va a encontrar a su familia", "Se va a caer al lago"],
   "acierto": "Se va a caer al lago"
+}
+
+
+Escopeta
+00:01:21.000 --> 00:01:23.800
+{
+  "title": "¿Qué ha conseguido el cazador?",
+  "description": "¿Qué ha conseguido el cazador?",
+  "src":"",
+  "href":"",
+  "botones": ["Matar al oso", "El oso escapa"],
+  "acierto": "El oso escapa"
 }
