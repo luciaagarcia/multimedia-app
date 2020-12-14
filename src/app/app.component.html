@@ -70,15 +70,6 @@
                             <label for="href">Link</label>
                             <input type="text" id="href" name="href" [(ngModel)]="newCue.href" required>
                         </div>
-                        <div class="form-field">
-                            <label for="href">Botones (opcional)</label>
-                            <input type="text" id="href" name="botones" [(ngModel)]="newCue.botones" required>
-                        </div>
-                        <div class="form-field">
-                            <label for="href">Acierto</label>
-                            <input type="text" id="href" name="acierto" [(ngModel)]="newCue.acierto" required>
-                        </div>
-
                         <button type="submit" [disabled]="!formRef.valid">Add Cue</button>
                     </form>
                 </div>

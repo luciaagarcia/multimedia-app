@@ -141,6 +141,8 @@ export class AppComponent implements OnInit {
         description: form.value.description,
         src: form.value.src,
         href: form.value.href,
+        botones: [],
+        acierto: "",
       };
 
       const jsonText = JSON.stringify(jsonData);
